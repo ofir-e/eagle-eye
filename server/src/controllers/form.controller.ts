@@ -1,19 +1,20 @@
 import { Form, IForm } from '../dal/form.orm';
 import { Request } from 'express';
-import { JsonController, Get, Param, Post, Req, Patch, Delete, Body } from 'routing-controllers';
+import { JsonController, Get, Param, Post, Req, Patch, Delete, Body, QueryParam } from 'routing-controllers';
 
 @JsonController('/forms')
 export class FormController {
   @Get('/')
-  async getAll() {
-    const allForms = await Form.find().lean();
-    return allForms;
+  async getAll(@QueryParam('formType') formType: string) {
+    const query = formType ? { formType } : {};
+    const allForms = await Form.find(query).lean();
+    return allForms.map(form => ({ ...form, _id: form._id.toString() }));
   }
 
   @Get('/:id')
   async getById(@Param('id') id: string) {
     const formById = await Form.findById(id).lean();
-    return formById;
+    return { ...formById, _id: formById._id.toString() };
   }
 
   @Post('/')

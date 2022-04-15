@@ -7,13 +7,13 @@ export class FormMetadataController {
   @Get('/')
   async getAll() {
     const allForms = await FormMetadata.find().lean();
-    return allForms;
+    return allForms.map(form => ({ ...form, _id: form._id.toString() }));
   }
 
   @Get('/:id')
   async getById(@Param('id') id: string) {
     const formById = await FormMetadata.findById(id).lean();
-    return formById;
+    return { ...formById, _id: formById._id.toString() };
   }
 
   @Post('/')

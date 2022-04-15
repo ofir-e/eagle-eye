@@ -5,13 +5,14 @@ const tslib_1 = require("tslib");
 const form_orm_1 = require("../dal/form.orm");
 const routing_controllers_1 = require("routing-controllers");
 let FormController = class FormController {
-    async getAll() {
-        const allForms = await form_orm_1.Form.find().lean();
-        return allForms;
+    async getAll(formType) {
+        const query = formType ? { formType } : {};
+        const allForms = await form_orm_1.Form.find(query).lean();
+        return allForms.map(form => (Object.assign(Object.assign({}, form), { _id: form._id.toString() })));
     }
     async getById(id) {
         const formById = await form_orm_1.Form.findById(id).lean();
-        return formById;
+        return Object.assign(Object.assign({}, formById), { _id: formById._id.toString() });
     }
     async create(newForm, { ip }) {
         const createdForm = await new form_orm_1.Form(Object.assign(Object.assign({}, newForm), { creatorIp: ip })).save();
@@ -28,8 +29,9 @@ let FormController = class FormController {
 };
 tslib_1.__decorate([
     (0, routing_controllers_1.Get)('/'),
+    tslib_1.__param(0, (0, routing_controllers_1.QueryParam)('formType')),
     tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", []),
+    tslib_1.__metadata("design:paramtypes", [String]),
     tslib_1.__metadata("design:returntype", Promise)
 ], FormController.prototype, "getAll", null);
 tslib_1.__decorate([

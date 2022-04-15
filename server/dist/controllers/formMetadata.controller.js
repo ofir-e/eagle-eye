@@ -7,11 +7,11 @@ const routing_controllers_1 = require("routing-controllers");
 let FormMetadataController = class FormMetadataController {
     async getAll() {
         const allForms = await formMetadata_orm_1.FormMetadata.find().lean();
-        return allForms;
+        return allForms.map(form => (Object.assign(Object.assign({}, form), { _id: form._id.toString() })));
     }
     async getById(id) {
         const formById = await formMetadata_orm_1.FormMetadata.findById(id).lean();
-        return formById;
+        return Object.assign(Object.assign({}, formById), { _id: formById._id.toString() });
     }
     async create(newForm, { ip }) {
         const createdFormMetadata = await new formMetadata_orm_1.FormMetadata(Object.assign(Object.assign({}, newForm), { creatorIp: ip })).save();
