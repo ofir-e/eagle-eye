@@ -13,7 +13,7 @@ export const FormContainer: FC = () => {
   const [formsMetadata, setFormsMetadata] = useState<IFormMetadata[]>([])
   const [selectedForm, setSelectedForm] = useState<IFormMetadata>()
   useEffect(() => {
-    axios.get<IFormMetadata[]>('http://localhost:3001/formsMetadata')
+    axios.get<IFormMetadata[]>('http://localhost:7500/formsMetadata')
       .then(({ data }) => {
         setFormsMetadata(data);
       });
@@ -36,7 +36,7 @@ export const FormContainer: FC = () => {
       </select>
     </div>
     {selectedForm && <Form metadata={selectedForm} onSubmit={(formData) => {
-      axios.post<IFormMetadata[]>('http://localhost:3001/forms', { ...formData, formType: selectedForm.formType })
+      axios.post<IFormMetadata[]>('http://localhost:7500/forms', { ...formData, formType: selectedForm.formType })
         .then(({ data }) => {
           alert('נשמר בהצלחה')
         })

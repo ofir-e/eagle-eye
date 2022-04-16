@@ -1,0 +1,32 @@
+version: "1"
+services:
+  eagle-eye-server:
+    container_name: eagle-eye-server
+    image: eagle-eye/server
+    restart: always
+    build: ./server
+    environment:
+      - ADMIN_KEY=123
+    ports:
+      - "7500:3001"
+    links:
+      - mongo
+  eagle-eye-forms-client:
+    container_name: eagle-eye-forms-client
+    image: eagle-eye/forms-client
+    restart: always
+    build: ./form-client
+    ports:
+      - "7501:3000"
+  eagle-eye-admin-client:
+    container_name: eagle-eye-admin-client
+    image: eagle-eye/admin-client
+    restart: always
+    build: ./admin-client
+    ports:
+      - "7502:3000"
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - '27017:27017'

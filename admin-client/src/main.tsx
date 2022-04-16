@@ -1,8 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
-import App from './App'
 import './index.css'
-import { AdminTableContainer } from './views/AdminTable'
+import { AdminTableContainer } from './AdminTable'
 
 render(
   <React.StrictMode>

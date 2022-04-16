@@ -4,7 +4,7 @@ import {connect} from 'mongoose';
 import { createExpressServer } from 'routing-controllers';
 import "reflect-metadata" 
 
-const uri = "mongodb+srv://tese123:test123@cluster0.00o2m.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const uri = "mongodb://host.docker.internal:27017/eagle-eye";
 
 const app = createExpressServer({
   controllers: [FormController, FormMetadataController],

@@ -6,7 +6,7 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import { CellValueChangedEvent } from "ag-grid-community";
 import { CsvExportModule, GetContextMenuItems } from "ag-grid-enterprise";
 import dayjs from 'dayjs';
-import { useDarkMode } from "usehooks-ts";
+import { useDarkMode, useLocalStorage } from "usehooks-ts";
 import axios from "axios";
 import './AdminTable.css';
 
@@ -98,19 +98,25 @@ export const AdminTableContainer: FC = () => {
 
   const [formsMetadata, setFormsMetadata] = useState<IFormMetadata[]>([])
   const [selectedForm, setSelectedForm] = useState<IFormMetadata>()
+  const [adminKey, setAdminKey] = useLocalStorage('ADMIN_KEY', '');
+
   useEffect(() => {
-    axios.get<IFormMetadata[]>('http://localhost:3001/formsMetadata')
-      .then(({ data }) => {
-        setFormsMetadata(data);
-      });
-  }, [])
+    const defaultHeaders = axios.defaults.headers as any;
+    defaultHeaders['admin-auth']= adminKey;
+
+    if (adminKey && formsMetadata.length === 0)
+      axios.get<IFormMetadata[]>('http://localhost:7500/formsMetadata/extended')
+        .then(({ data }) => {
+          setFormsMetadata(data);
+        });
+  }, [adminKey])
 
 
 
   const [rows, setRows] = useState<Record<string, any>[]>([]);
 
   const reload = useCallback(() => {
-    axios.get<Record<string, any>[]>(`http://localhost:3001/forms?formType=${selectedForm?.formType}`)
+    axios.get<Record<string, any>[]>(`http://localhost:7500/forms?formType=${selectedForm?.formType}`)
       .then(({ data }) => { setRows(data) })
       .catch(() => { alert("התרחשה שגיאה!") });
   }, [selectedForm])
@@ -121,13 +127,15 @@ export const AdminTableContainer: FC = () => {
 
   const editCell = useCallback((event: CellValueChangedEvent) => {
     const { _id } = event.data;
-    axios.patch<Record<string, any>[]>(`http://localhost:3001/forms/${_id}`, { [event.colDef.field!]: event.newValue })
+    axios.patch<Record<string, any>[]>(`http://localhost:7500/forms/${_id}`, { [event.colDef.field!]: event.newValue })
       .then(() => { reload(); })
       .catch(() => { alert("התרחשה שגיאה!") });
-  }, [])
+  }, [reload])
 
   return <>
-    <div className={`form-type-selector ${selectedForm ? 'grow' : ''}`}>
+    <div dir="rtl" className={`form-type-selector ${selectedForm ? 'grow' : ''}`}>
+      <label>סיסמת אדמין</label>
+      <input type={"password"} value={adminKey} onChange={(e) => { setAdminKey(e.target.value) }} />
       <select onChange={e => {
         setSelectedForm(formsMetadata.find(({ formType }) => e.target.value === formType));
       }}>

@@ -1,13 +1,187 @@
+.App {
+  text-align: center
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #fff
+}
+
+.App-link {
+  color: #61dafb
+}
+
+@keyframes App-logo-spin {
+  0% {
+    transform: rotate(0)
+  }
+
+  to {
+    transform: rotate(360deg)
+  }
+}
+
+button {
+  font-size: calc(10px + 2vmin)
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center
+}
+
+body {
+  background: #0e101c;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  color: #fff;
+  padding: 0 20px 50px
+}
+
+h1 {
+  margin-top: 80px;
+  color: #fff;
+  font-size: 25px;
+  padding-bottom: 0
+}
+
+form {
+  max-width: 800px;
+  margin: 0 auto
+}
+
+p {
+  color: #bf1650;
+  text-align: center
+}
+
+textarea,
+select,
+input {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid white;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  font-size: 14px
+}
+
+label,
+section>label {
+  line-height: 2;
+  text-align: right;
+  display: block;
+  margin-bottom: 13px;
+  margin-top: 20px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 200
+}
+
+input[type=submit],
+button {
+  position: relative;
+  background: #ec5990;
+  color: #fff;
+  text-transform: uppercase;
+  border: none;
+  font-weight: 600;
+  margin-top: 20px;
+  padding: 20px;
+  font-size: 16px;
+  letter-spacing: 2px;
+  display: block;
+  appearance: none;
+  border-radius: 4px;
+  width: 100%;
+  font-weight: 400;
+  letter-spacing: .5rem;
+  transition: .3s all
+}
+
+.buttonBlack {
+  background: black;
+  border: 1px solid white
+}
+
+.App {
+  max-width: 600px;
+  margin: 0 auto
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px
+}
+
+.counter {
+  font-weight: 400;
+  background: white;
+  color: #000;
+  padding: 10px 15px;
+  border-radius: 4px;
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  z-index: 9999999
+}
+
+button[type=button] {
+  background: #516391;
+  color: #fff;
+  letter-spacing: 0px;
+  text-transform: none;
+  padding: 10px;
+  letter-spacing: 1px
+}
+
+input[type=submit]:hover,
+button[type=button]:hover {
+  background: #bf1650;
+  color: #fff
+}
+
+input[type=submit]:active {
+  transition: .3s all;
+  top: 2px
+}
+
+.preact {
+  opacity: 0;
+  color: #fff
+}
+
+.preact:hover {
+  opacity: 1
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, Courier New, monospace
 }
